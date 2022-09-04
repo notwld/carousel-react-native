@@ -22,10 +22,10 @@ const images = [
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
-const ANCHO_CONTENEDOR = width * 0.7;
-const ESPACIO_CONTENEDOR = (width - ANCHO_CONTENEDOR) / 2;
-const ESPACIO = 10;
-const ALTURA_BACKDROP = height * 0.5;
+const CONTAINER_WIDTH = width * 0.7;
+const CONTAINER_SPACE = (width - CONTAINER_WIDTH) / 2;
+const SPACE = 10;
+const HEIGHT_BACKDROP = height * 0.5;
 
 function Backdrop({ scrollX }) {
   return (
@@ -33,7 +33,7 @@ function Backdrop({ scrollX }) {
       style={[
         {
           position: "absolute",
-          height: ALTURA_BACKDROP,
+          height: HEIGHT_BACKDROP,
           top: 0,
           width: width,
         },
@@ -42,9 +42,9 @@ function Backdrop({ scrollX }) {
     >
       {images.map((imagen, index) => {
         const inputRange = [
-          (index - 1) * ANCHO_CONTENEDOR,
-          index * ANCHO_CONTENEDOR,
-          (index + 1) * ANCHO_CONTENEDOR,
+          (index - 1) * CONTAINER_WIDTH,
+          index * CONTAINER_WIDTH,
+          (index + 1) * CONTAINER_WIDTH,
         ];
 
         const opacity = scrollX.interpolate({
@@ -56,7 +56,7 @@ function Backdrop({ scrollX }) {
             key={index}
             source={imagen}
             style={[
-              { width: width, height: ALTURA_BACKDROP, opacity },
+              { width: width, height: HEIGHT_BACKDROP, opacity },
               StyleSheet.absoluteFillObject,
             ]}
           />
@@ -66,7 +66,7 @@ function Backdrop({ scrollX }) {
         colors={["transparent", "white"]}
         style={{
           width,
-          height: ALTURA_BACKDROP,
+          height: HEIGHT_BACKDROP,
           position: "absolute",
           bottom: 0,
         }}
@@ -91,18 +91,18 @@ export default function App() {
         snapToAlignment="start"
         contentContainerStyle={{
           paddingTop: 200,
-          paddingHorizontal: ESPACIO_CONTENEDOR,
+          paddingHorizontal: CONTAINER_SPACE,
         }}
-        snapToInterval={ANCHO_CONTENEDOR}
+        snapToInterval={CONTAINER_WIDTH}
         decelerationRate={0}
         scrollEventThrottle={16}
         data={images}
         keyExtractor={(item) => item}
         renderItem={({ item, index }) => {
           const inputRange = [
-            (index - 1) * ANCHO_CONTENEDOR,
-            index * ANCHO_CONTENEDOR,
-            (index + 1) * ANCHO_CONTENEDOR,
+            (index - 1) * CONTAINER_WIDTH,
+            index * CONTAINER_WIDTH,
+            (index + 1) * CONTAINER_WIDTH,
           ];
 
           const scrollY = scrollX.interpolate({
@@ -110,11 +110,11 @@ export default function App() {
             outputRange: [0, -50, 0],
           });
           return (
-            <View style={{ width: ANCHO_CONTENEDOR }}>
+            <View style={{ width: CONTAINER_WIDTH }}>
               <Animated.View
                 style={{
-                  marginHorizontal: ESPACIO,
-                  padding: ESPACIO,
+                  marginHorizontal: SPACE,
+                  padding: SPACE,
                   borderRadius: 34,
                   // backgroundColor: "#fff",
                   alignItems: "center",
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   },
   posterImage: {
     width: "100%",
-    height: ANCHO_CONTENEDOR * 1.2,
+    height: CONTAINER_WIDTH * 1.2,
     resizeMode: "cover",
     borderRadius: 15,
     margin: 0,
